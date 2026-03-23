@@ -1,0 +1,2 @@
+Removed during final cleanup.
+Spring component scanning wires all services automatically.

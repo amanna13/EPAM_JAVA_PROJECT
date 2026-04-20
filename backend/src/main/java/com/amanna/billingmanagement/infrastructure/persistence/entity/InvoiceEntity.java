@@ -26,6 +26,15 @@ public class InvoiceEntity {
     @Column(name = "customer_gstin", nullable = false)
     private String customerGstin;
 
+    @Column(name = "seller_gstin", nullable = false)
+    private String sellerGstin;
+
+    @Column(name = "place_of_supply", nullable = false)
+    private String placeOfSupply;
+
+    @Column(name = "line_items_json", nullable = false, columnDefinition = "CLOB")
+    private String lineItemsJson;
+
     @Column(name = "taxable_amount", nullable = false)
     private BigDecimal taxableAmount;
 
@@ -53,6 +62,30 @@ public class InvoiceEntity {
 
     public void setCustomerGstin(String customerGstin) {
         this.customerGstin = customerGstin;
+    }
+
+    public String getSellerGstin() {
+        return sellerGstin;
+    }
+
+    public void setSellerGstin(String sellerGstin) {
+        this.sellerGstin = sellerGstin;
+    }
+
+    public String getPlaceOfSupply() {
+        return placeOfSupply;
+    }
+
+    public void setPlaceOfSupply(String placeOfSupply) {
+        this.placeOfSupply = placeOfSupply;
+    }
+
+    public String getLineItemsJson() {
+        return lineItemsJson;
+    }
+
+    public void setLineItemsJson(String lineItemsJson) {
+        this.lineItemsJson = lineItemsJson;
     }
 
     public BigDecimal getTaxableAmount() {

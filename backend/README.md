@@ -25,12 +25,14 @@
 Active packages in `src/main/java/com/amanna/billingmanagement`
 - `api.invoice` with `InvoiceController` and DTOs
 - `application` with `InvoiceService` orchestrating domain + persistence
-- `domain.invoice` with `Invoice`
+- `domain.invoice` with `Invoice` and `InvoiceLineItem`
 - `infrastructure.persistence` with JPA entities and repositories
-- `POST /api/v1/invoices` returns taxable amount, CGST, SGST, total tax, and total amount
+- `POST /api/v1/invoices` creates invoice from line items
 - `GET /api/v1/invoices/{id}` fetches invoice by id
 - `GET /api/v1/invoices` lists invoices
 - `GET /api/v1/invoices?status=DRAFT|ISSUED|CANCELLED` filters invoices by status
+- `GET /api/v1/invoices?customerGstin=<GSTIN>` filters invoices by customer GSTIN
+- `GET /api/v1/invoices?status=ISSUED&customerGstin=<GSTIN>` combines both filters
 - `POST /api/v1/invoices/{id}/issue` marks an invoice as issued
 - `POST /api/v1/invoices/{id}/cancel` marks an invoice as cancelled
 - `POST /api/v1/invoices/{id}/update` updates draft invoice details
@@ -43,8 +45,10 @@ Dependency direction applied
 - Invoice create (DRAFT status)
 - Invoice fetch by id
 - Invoice list (with optional status filter)
+- Invoice list (optional status + customer GSTIN filters)
 - Invoice lifecycle: DRAFT → ISSUED, DRAFT → CANCELLED
-- GST breakdown: CGST (9%), SGST (9%), total tax, total amount
+- Line-item based taxable amount calculation
+- GST rule engine: intra-state => CGST+SGST, inter-state => IGST
 - Invoice update (draft only)
 - Validation for create/update payloads
 - Default Spring error handling (minimal)
@@ -66,8 +70,8 @@ This project is intentionally minimal, so there are no test files at the moment.
 
 ## Next Steps
 
-- Add invoice line items and product/HSN support
-- Add IGST/place-of-supply rules and configurable tax rates
-- Add auth/roles, audit trails, and reporting exports
+- Add minimal audit trail for create/update/issue/cancel
+- Add basic GST summary export endpoint for filing support
+- Add simple auth (single-role protected mutation endpoints)
 - Add tests for domain and API lifecycle flows
 

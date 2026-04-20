@@ -1,15 +1,20 @@
 package com.amanna.billingmanagement.api.invoice.dto;
 
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.Valid;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public record CreateInvoiceRequest(
 		@NotBlank(message = "Customer GSTIN is required")
 		String customerGstin,
-		@DecimalMin(value = "0.01", message = "Taxable amount must be greater than zero")
-		BigDecimal taxableAmount
+		@NotBlank(message = "Seller GSTIN is required")
+		String sellerGstin,
+		@NotBlank(message = "Place of supply is required")
+		String placeOfSupply,
+		@NotEmpty(message = "At least one line item is required")
+		List<@Valid InvoiceLineItemRequest> lineItems
 ) {
 }
 

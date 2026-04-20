@@ -11,5 +11,9 @@ public interface InvoiceJpaRepository extends JpaRepository<InvoiceEntity, Strin
 	List<InvoiceEntity> findAllByOrderByCreatedAtAsc();
 
 	List<InvoiceEntity> findByStatusOrderByCreatedAtAsc(InvoiceStatus status);
+
+	List<InvoiceEntity> findByCustomerGstinOrderByCreatedAtAsc(String customerGstin);
+
+	List<InvoiceEntity> findByStatusAndCustomerGstinOrderByCreatedAtAsc(InvoiceStatus status, String customerGstin);
 }
 

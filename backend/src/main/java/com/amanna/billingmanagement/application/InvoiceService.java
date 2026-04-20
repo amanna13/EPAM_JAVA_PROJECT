@@ -1,6 +1,7 @@
 package com.amanna.billingmanagement.application;
 
 import com.amanna.billingmanagement.domain.invoice.Invoice;
+import com.amanna.billingmanagement.domain.invoice.InvoiceLineItem;
 import com.amanna.billingmanagement.domain.invoice.InvoiceStatus;
 import com.amanna.billingmanagement.infrastructure.InvoiceMapper;
 import com.amanna.billingmanagement.infrastructure.persistence.repository.InvoiceJpaRepository;
@@ -23,8 +24,8 @@ public class InvoiceService {
 		this.invoiceMapper = invoiceMapper;
 	}
 
-	public Invoice createDraft(String customerGstin, BigDecimal taxableAmount) {
-		Invoice invoice = Invoice.draft(customerGstin, taxableAmount);
+	public Invoice createDraft(String customerGstin, String sellerGstin, String placeOfSupply, List<InvoiceLineItem> lineItems) {
+		Invoice invoice = Invoice.draft(customerGstin, sellerGstin, placeOfSupply, lineItems);
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
 		return invoiceMapper.toDomain(saved);
 	}
@@ -35,11 +36,26 @@ public class InvoiceService {
 		return invoiceMapper.toDomain(entity);
 	}
 
-	public List<Invoice> list(InvoiceStatus status) {
-		List<InvoiceEntity> entities = status == null
-				? invoiceJpaRepository.findAllByOrderByCreatedAtAsc()
-				: invoiceJpaRepository.findByStatusOrderByCreatedAtAsc(status);
+	public List<Invoice> list(InvoiceStatus status, String customerGstin) {
+		String normalizedCustomerGstin = normalizeCustomerGstin(customerGstin);
+		List<InvoiceEntity> entities;
+		if (status == null && normalizedCustomerGstin == null) {
+			entities = invoiceJpaRepository.findAllByOrderByCreatedAtAsc();
+		} else if (status != null && normalizedCustomerGstin == null) {
+			entities = invoiceJpaRepository.findByStatusOrderByCreatedAtAsc(status);
+		} else if (status == null) {
+			entities = invoiceJpaRepository.findByCustomerGstinOrderByCreatedAtAsc(normalizedCustomerGstin);
+		} else {
+			entities = invoiceJpaRepository.findByStatusAndCustomerGstinOrderByCreatedAtAsc(status, normalizedCustomerGstin);
+		}
 		return entities.stream().map(invoiceMapper::toDomain).toList();
+	}
+
+	private String normalizeCustomerGstin(String customerGstin) {
+		if (customerGstin == null || customerGstin.isBlank()) {
+			return null;
+		}
+		return customerGstin.trim();
 	}
 
 	public Invoice issue(String id) {
@@ -54,8 +70,8 @@ public class InvoiceService {
 		return invoiceMapper.toDomain(saved);
 	}
 
-	public Invoice update(String id, String customerGstin, BigDecimal taxableAmount) {
-		Invoice invoice = getById(id).update(customerGstin, taxableAmount);
+	public Invoice update(String id, String customerGstin, String sellerGstin, String placeOfSupply, List<InvoiceLineItem> lineItems) {
+		Invoice invoice = getById(id).update(customerGstin, sellerGstin, placeOfSupply, lineItems);
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
 		return invoiceMapper.toDomain(saved);
 	}

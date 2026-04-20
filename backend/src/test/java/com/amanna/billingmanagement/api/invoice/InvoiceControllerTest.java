@@ -1,2 +1,0 @@
-// Archived during simplification: no test files are needed for this small project.
-

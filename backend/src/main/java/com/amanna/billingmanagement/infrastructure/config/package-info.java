@@ -1,2 +1,0 @@
-// Archived during simplification: removed infrastructure config package marker.
-

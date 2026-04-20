@@ -1,5 +1,2 @@
-/**
- * Reserved for future infrastructure config if needed.
- */
-package com.amanna.billingmanagement.infrastructure.config;
+// Archived during simplification: removed infrastructure config package marker.
 

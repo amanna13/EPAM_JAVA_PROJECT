@@ -4,12 +4,13 @@
 Simple dependency rules for the backend package structure.
 
 ## Allowed Dependencies
-- `api` can depend on `domain`
-- `domain` should not depend on Spring or web packages
+- `api` can depend on `application` and DTO classes
+- `application` can depend on `domain` and `infrastructure`
+- `infrastructure` can depend on `domain`
+- `domain` should not depend on Spring, web, or persistence packages
 
 ## Not Allowed (for this project stage)
-- `application`, `usecase`, and `port` packages
-- extra adapter layers before they are needed by real features
+- unnecessary extra adapter layers before they are needed by real features
 
 ## Boundary Notes
 - API DTOs must not be used as domain entities
@@ -20,6 +21,6 @@ Simple dependency rules for the backend package structure.
 - Package naming follows `com.amanna.billingmanagement.<layer>`
 - Constructor injection is preferred for API and adapter classes
 - Domain layer is immutable first and invariant driven
-- Keep flow direct: controller -> domain -> response DTO
-- Keep exception handling minimal unless a real need appears
+- Keep flow clear: controller -> service -> domain -> persistence
+- Keep exception handling consistent and simple
 

@@ -34,6 +34,10 @@ public final class Invoice {
         return new Invoice(UUID.randomUUID().toString(), customerGstin, taxableAmount, Instant.now(), InvoiceStatus.DRAFT);
     }
 
+    public static Invoice reconstruct(String id, String customerGstin, BigDecimal taxableAmount, InvoiceStatus status, Instant createdAt) {
+        return new Invoice(id, customerGstin, taxableAmount, createdAt, status);
+    }
+
     public String id() {
         return id;
     }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,6 +38,14 @@ public class InvoiceController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found: " + id);
         }
         return toResponse(invoice);
+    }
+
+    @GetMapping
+    public List<InvoiceResponse> list() {
+        return invoices.values().stream()
+                .sorted((first, second) -> first.createdAt().compareTo(second.createdAt()))
+                .map(this::toResponse)
+                .toList();
     }
 
     private InvoiceResponse toResponse(Invoice invoice) {

@@ -2,6 +2,7 @@ package com.amanna.billingmanagement.api.invoice;
 
 import com.amanna.billingmanagement.api.invoice.dto.CreateInvoiceRequest;
 import com.amanna.billingmanagement.api.invoice.dto.InvoiceResponse;
+import com.amanna.billingmanagement.api.invoice.dto.UpdateInvoiceRequest;
 import com.amanna.billingmanagement.domain.invoice.Invoice;
 import com.amanna.billingmanagement.domain.invoice.InvoiceStatus;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,17 @@ public class InvoiceController {
         Invoice issuedInvoice = invoice.issue();
         invoices.put(id, issuedInvoice);
         return toResponse(issuedInvoice);
+    }
+
+    @PostMapping("/{id}/update")
+    public InvoiceResponse update(@PathVariable String id, @RequestBody UpdateInvoiceRequest request) {
+        Invoice invoice = invoices.get(id);
+        if (invoice == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found: " + id);
+        }
+        Invoice updatedInvoice = invoice.update(request.customerGstin(), request.taxableAmount());
+        invoices.put(id, updatedInvoice);
+        return toResponse(updatedInvoice);
     }
 
     private InvoiceResponse toResponse(Invoice invoice) {

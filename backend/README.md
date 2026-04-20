@@ -30,6 +30,7 @@ Active packages in `src/main/java/com/amanna/billingmanagement`
 - `GET /api/v1/invoices?status=DRAFT|ISSUED|CANCELLED` filters invoices by status
 - `POST /api/v1/invoices/{id}/issue` marks an invoice as issued
 - `POST /api/v1/invoices/{id}/cancel` marks an invoice as cancelled
+- `POST /api/v1/invoices/{id}/update` updates draft invoice details
 
 Dependency direction applied
 - `api` depends on `domain`
@@ -47,5 +48,5 @@ This project is intentionally minimal, so there are no test files at the moment.
 ## Next Steps
 
 - Add persistence only when required by features
-- Add invoice update operations if needed later
+- Add stronger lifecycle rules or persistence if the project grows
 

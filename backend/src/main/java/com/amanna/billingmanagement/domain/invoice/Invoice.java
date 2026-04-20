@@ -87,6 +87,19 @@ public final class Invoice {
         return new Invoice(id, customerGstin, taxableAmount, createdAt, InvoiceStatus.ISSUED);
     }
 
+    public Invoice update(String customerGstin, BigDecimal taxableAmount) {
+        if (status != InvoiceStatus.DRAFT) {
+            throw new IllegalStateException("Only draft invoices can be updated");
+        }
+        if (customerGstin == null || customerGstin.isBlank()) {
+            throw new IllegalArgumentException("Customer GSTIN is required");
+        }
+        if (taxableAmount == null || taxableAmount.signum() <= 0) {
+            throw new IllegalArgumentException("Taxable amount must be greater than zero");
+        }
+        return new Invoice(id, customerGstin, taxableAmount, createdAt, status);
+    }
+
     private BigDecimal percentageOfTaxable(BigDecimal rate) {
         return taxableAmount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
     }

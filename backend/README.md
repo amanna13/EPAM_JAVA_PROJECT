@@ -70,6 +70,12 @@ Build locally
 ./mvnw clean package
 ```
 
+Swagger / OpenAPI
+```text
+http://localhost:8080/swagger-ui.html
+http://localhost:8080/v3/api-docs
+```
+
 This project is intentionally minimal, so there are no test files at the moment.
 
 ## Next Steps

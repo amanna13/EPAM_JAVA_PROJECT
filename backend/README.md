@@ -11,6 +11,7 @@
 - `api` for endpoints and DTOs
 - `domain` for core models and rules
 - `shared` for common classes
+- No `application`, `usecase`, or `port` layers for now
 
 ## Engineering Rules
 - Keep classes small and readable
@@ -23,7 +24,7 @@
 Active packages in `src/main/java/com/amanna/billingmanagement`
 - `api.invoice` with `InvoiceController` and DTOs
 - `api.error` with global exception handling
-- `domain.invoice` with `Invoice` and `InvoiceId`
+- `domain.invoice` with `Invoice`
 - `shared.kernel` with base domain exception
 
 Dependency direction applied
@@ -32,15 +33,16 @@ Dependency direction applied
 
 ## How to Run
 
-Build and test locally
-```bash
-./mvnw clean test
+Build locally
+```powershell
+./mvnw clean package
 ```
+
+This project is intentionally minimal, so there are no test files at the moment.
 
 ## Next Steps
 
-- Add persistence layer with database tables and repository
+- Add persistence only when required by features
 - Add more invoice operations like update, issue, cancel
 - Add GST tax calculation rules in domain
-- Extend domain with Party, Product, TaxRate models
 

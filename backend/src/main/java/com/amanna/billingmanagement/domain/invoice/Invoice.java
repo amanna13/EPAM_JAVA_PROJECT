@@ -4,15 +4,16 @@ import com.amanna.billingmanagement.shared.kernel.DomainException;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 public final class Invoice {
 
-    private final InvoiceId id;
+    private final String id;
     private final String customerGstin;
     private final BigDecimal taxableAmount;
     private final Instant createdAt;
 
-    private Invoice(InvoiceId id, String customerGstin, BigDecimal taxableAmount, Instant createdAt) {
+    private Invoice(String id, String customerGstin, BigDecimal taxableAmount, Instant createdAt) {
         this.id = id;
         this.customerGstin = customerGstin;
         this.taxableAmount = taxableAmount;
@@ -26,10 +27,10 @@ public final class Invoice {
         if (taxableAmount == null || taxableAmount.signum() <= 0) {
             throw new DomainException("Taxable amount must be greater than zero");
         }
-        return new Invoice(InvoiceId.newId(), customerGstin, taxableAmount, Instant.now());
+        return new Invoice(UUID.randomUUID().toString(), customerGstin, taxableAmount, Instant.now());
     }
 
-    public InvoiceId id() {
+    public String id() {
         return id;
     }
 

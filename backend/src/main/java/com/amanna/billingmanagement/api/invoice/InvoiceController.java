@@ -19,7 +19,7 @@ public class InvoiceController {
     public InvoiceResponse create(@RequestBody CreateInvoiceRequest request) {
         Invoice invoice = Invoice.draft(request.customerGstin(), request.taxableAmount());
         return new InvoiceResponse(
-                invoice.id().value(),
+                invoice.id(),
                 invoice.customerGstin(),
                 invoice.taxableAmount(),
                 invoice.createdAt()

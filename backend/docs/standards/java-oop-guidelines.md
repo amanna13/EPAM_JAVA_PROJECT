@@ -17,7 +17,6 @@
 - Keep methods small and intention revealing
 
 ## Testing Expectations
-- Unit test domain logic and validation first
-- Add integration tests for API behavior and wiring
-- Cover negative scenarios for validation and state rules
+- Tests can be added later if the project grows
+- Keep current implementation minimal unless verification becomes necessary
 

@@ -26,7 +26,8 @@ Active packages in `src/main/java/com/amanna/billingmanagement`
 - `domain.invoice` with `Invoice`
 - `POST /api/v1/invoices` returns taxable amount, CGST, SGST, total tax, and total amount
 - `GET /api/v1/invoices/{id}` fetches a created invoice from in-memory store
-- `GET /api/v1/invoices` lists all stored invoices from in-memory store
+- `GET /api/v1/invoices` lists stored invoices from in-memory store
+- `GET /api/v1/invoices?status=DRAFT|ISSUED|CANCELLED` filters invoices by status
 - `POST /api/v1/invoices/{id}/issue` marks an invoice as issued
 - `POST /api/v1/invoices/{id}/cancel` marks an invoice as cancelled
 

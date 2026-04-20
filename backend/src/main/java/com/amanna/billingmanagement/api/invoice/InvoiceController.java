@@ -3,12 +3,14 @@ package com.amanna.billingmanagement.api.invoice;
 import com.amanna.billingmanagement.api.invoice.dto.CreateInvoiceRequest;
 import com.amanna.billingmanagement.api.invoice.dto.InvoiceResponse;
 import com.amanna.billingmanagement.domain.invoice.Invoice;
+import com.amanna.billingmanagement.domain.invoice.InvoiceStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,8 +43,9 @@ public class InvoiceController {
     }
 
     @GetMapping
-    public List<InvoiceResponse> list() {
+    public List<InvoiceResponse> list(@RequestParam(required = false) InvoiceStatus status) {
         return invoices.values().stream()
+                .filter(invoice -> status == null || invoice.status() == status)
                 .sorted((first, second) -> first.createdAt().compareTo(second.createdAt()))
                 .map(this::toResponse)
                 .toList();

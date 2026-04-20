@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -18,16 +17,24 @@ public class InvoiceService {
 
 	private final InvoiceJpaRepository invoiceJpaRepository;
 	private final InvoiceMapper invoiceMapper;
+	private final AuditLogService auditLogService;
 
-	public InvoiceService(InvoiceJpaRepository invoiceJpaRepository, InvoiceMapper invoiceMapper) {
+	public InvoiceService(
+			InvoiceJpaRepository invoiceJpaRepository,
+			InvoiceMapper invoiceMapper,
+			AuditLogService auditLogService
+	) {
 		this.invoiceJpaRepository = invoiceJpaRepository;
 		this.invoiceMapper = invoiceMapper;
+		this.auditLogService = auditLogService;
 	}
 
 	public Invoice createDraft(String customerGstin, String sellerGstin, String placeOfSupply, List<InvoiceLineItem> lineItems) {
 		Invoice invoice = Invoice.draft(customerGstin, sellerGstin, placeOfSupply, lineItems);
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
-		return invoiceMapper.toDomain(saved);
+		Invoice createdInvoice = invoiceMapper.toDomain(saved);
+		auditLogService.logInvoiceAction("CREATE", createdInvoice.id());
+		return createdInvoice;
 	}
 
 	public Invoice getById(String id) {
@@ -61,19 +68,25 @@ public class InvoiceService {
 	public Invoice issue(String id) {
 		Invoice invoice = getById(id).issue();
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
-		return invoiceMapper.toDomain(saved);
+		Invoice issuedInvoice = invoiceMapper.toDomain(saved);
+		auditLogService.logInvoiceAction("ISSUE", issuedInvoice.id());
+		return issuedInvoice;
 	}
 
 	public Invoice cancel(String id) {
 		Invoice invoice = getById(id).cancel();
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
-		return invoiceMapper.toDomain(saved);
+		Invoice cancelledInvoice = invoiceMapper.toDomain(saved);
+		auditLogService.logInvoiceAction("CANCEL", cancelledInvoice.id());
+		return cancelledInvoice;
 	}
 
 	public Invoice update(String id, String customerGstin, String sellerGstin, String placeOfSupply, List<InvoiceLineItem> lineItems) {
 		Invoice invoice = getById(id).update(customerGstin, sellerGstin, placeOfSupply, lineItems);
 		InvoiceEntity saved = invoiceJpaRepository.save(invoiceMapper.toEntity(invoice));
-		return invoiceMapper.toDomain(saved);
+		Invoice updatedInvoice = invoiceMapper.toDomain(saved);
+		auditLogService.logInvoiceAction("UPDATE", updatedInvoice.id());
+		return updatedInvoice;
 	}
 }
 

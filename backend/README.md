@@ -53,6 +53,7 @@ Dependency direction applied
 - Validation for create/update payloads
 - Default Spring error handling (minimal)
 - JPA persistence through H2 + Flyway migration
+- Minimal audit logs for invoice create/update/issue/cancel (timestamp + invoiceId + action)
 
 ## Database Setup
 - H2 in-memory for development (default)

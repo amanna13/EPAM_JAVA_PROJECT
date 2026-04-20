@@ -48,6 +48,17 @@ public class InvoiceController {
                 .toList();
     }
 
+    @PostMapping("/{id}/cancel")
+    public InvoiceResponse cancel(@PathVariable String id) {
+        Invoice invoice = invoices.get(id);
+        if (invoice == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found: " + id);
+        }
+        Invoice cancelledInvoice = invoice.cancel();
+        invoices.put(id, cancelledInvoice);
+        return toResponse(cancelledInvoice);
+    }
+
     private InvoiceResponse toResponse(Invoice invoice) {
         return new InvoiceResponse(
             invoice.id(),
@@ -57,6 +68,7 @@ public class InvoiceController {
             invoice.sgstAmount(),
             invoice.totalTaxAmount(),
             invoice.totalAmount(),
+            invoice.status().name(),
             invoice.createdAt()
         );
     }

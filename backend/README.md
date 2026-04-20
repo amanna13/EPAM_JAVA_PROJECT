@@ -27,6 +27,7 @@ Active packages in `src/main/java/com/amanna/billingmanagement`
 - `POST /api/v1/invoices` returns taxable amount, CGST, SGST, total tax, and total amount
 - `GET /api/v1/invoices/{id}` fetches a created invoice from in-memory store
 - `GET /api/v1/invoices` lists all stored invoices from in-memory store
+- `POST /api/v1/invoices/{id}/cancel` marks an invoice as cancelled
 
 Dependency direction applied
 - `api` depends on `domain`
@@ -44,5 +45,5 @@ This project is intentionally minimal, so there are no test files at the moment.
 ## Next Steps
 
 - Add persistence only when required by features
-- Add invoice update, issue, and cancel operations
+- Add invoice issue and update operations if needed later
 

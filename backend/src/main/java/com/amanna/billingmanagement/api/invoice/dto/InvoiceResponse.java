@@ -11,6 +11,7 @@ public record InvoiceResponse(
 		BigDecimal sgstAmount,
 		BigDecimal totalTaxAmount,
 		BigDecimal totalAmount,
+		String status,
 		Instant createdAt
 ) {
 }

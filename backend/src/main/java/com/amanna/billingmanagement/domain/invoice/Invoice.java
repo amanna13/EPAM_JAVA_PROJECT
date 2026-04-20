@@ -77,6 +77,16 @@ public final class Invoice {
         return new Invoice(id, customerGstin, taxableAmount, createdAt, InvoiceStatus.CANCELLED);
     }
 
+    public Invoice issue() {
+        if (status == InvoiceStatus.CANCELLED) {
+            throw new IllegalStateException("Cancelled invoice cannot be issued");
+        }
+        if (status == InvoiceStatus.ISSUED) {
+            throw new IllegalStateException("Invoice is already issued");
+        }
+        return new Invoice(id, customerGstin, taxableAmount, createdAt, InvoiceStatus.ISSUED);
+    }
+
     private BigDecimal percentageOfTaxable(BigDecimal rate) {
         return taxableAmount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
     }

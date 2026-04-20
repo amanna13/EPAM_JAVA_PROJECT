@@ -59,6 +59,17 @@ public class InvoiceController {
         return toResponse(cancelledInvoice);
     }
 
+    @PostMapping("/{id}/issue")
+    public InvoiceResponse issue(@PathVariable String id) {
+        Invoice invoice = invoices.get(id);
+        if (invoice == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found: " + id);
+        }
+        Invoice issuedInvoice = invoice.issue();
+        invoices.put(id, issuedInvoice);
+        return toResponse(issuedInvoice);
+    }
+
     private InvoiceResponse toResponse(Invoice invoice) {
         return new InvoiceResponse(
             invoice.id(),

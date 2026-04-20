@@ -36,6 +36,8 @@ Active packages in `src/main/java/com/amanna/billingmanagement`
 - `POST /api/v1/invoices/{id}/issue` marks an invoice as issued
 - `POST /api/v1/invoices/{id}/cancel` marks an invoice as cancelled
 - `POST /api/v1/invoices/{id}/update` updates draft invoice details
+- `GET /api/v1/reports/gst-summary?from=YYYY-MM-DD&to=YYYY-MM-DD` returns CGST/SGST/IGST totals
+- `GET /api/v1/reports/gst-summary/export?from=YYYY-MM-DD&to=YYYY-MM-DD` exports same summary as CSV
 
 Dependency direction applied
 - `api` depends on `domain`
@@ -54,6 +56,7 @@ Dependency direction applied
 - Default Spring error handling (minimal)
 - JPA persistence through H2 + Flyway migration
 - Minimal audit logs for invoice create/update/issue/cancel (timestamp + invoiceId + action)
+- GST summary endpoint/export by date range
 
 ## Database Setup
 - H2 in-memory for development (default)
@@ -71,8 +74,6 @@ This project is intentionally minimal, so there are no test files at the moment.
 
 ## Next Steps
 
-- Add minimal audit trail for create/update/issue/cancel
-- Add basic GST summary export endpoint for filing support
 - Add simple auth (single-role protected mutation endpoints)
 - Add tests for domain and API lifecycle flows
 

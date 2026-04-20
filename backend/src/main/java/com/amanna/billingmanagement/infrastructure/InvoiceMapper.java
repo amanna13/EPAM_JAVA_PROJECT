@@ -14,11 +14,7 @@ import java.util.List;
 @Component
 public class InvoiceMapper {
 
-	private final ObjectMapper objectMapper;
-
-	public InvoiceMapper(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
+	private final ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();
 
 	public Invoice toDomain(InvoiceEntity entity) {
 		return Invoice.reconstruct(

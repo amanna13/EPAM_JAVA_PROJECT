@@ -4,9 +4,8 @@
 Simple dependency rules for the backend package structure.
 
 ## Allowed Dependencies
-- `api` can depend on `domain` and `shared`
-- `domain` can depend on `shared` only
-- `shared` must not depend on project packages
+- `api` can depend on `domain`
+- `domain` should not depend on Spring or web packages
 
 ## Not Allowed (for this project stage)
 - `application`, `usecase`, and `port` packages
@@ -22,4 +21,5 @@ Simple dependency rules for the backend package structure.
 - Constructor injection is preferred for API and adapter classes
 - Domain layer is immutable first and invariant driven
 - Keep flow direct: controller -> domain -> response DTO
+- Keep exception handling minimal unless a real need appears
 

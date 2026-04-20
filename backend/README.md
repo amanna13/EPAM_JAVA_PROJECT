@@ -23,13 +23,12 @@
 
 Active packages in `src/main/java/com/amanna/billingmanagement`
 - `api.invoice` with `InvoiceController` and DTOs
-- `api.error` with global exception handling
 - `domain.invoice` with `Invoice`
-- `shared.kernel` with base domain exception
+- `POST /api/v1/invoices` returns taxable amount, CGST, SGST, total tax, and total amount
 
 Dependency direction applied
 - `api` depends on `domain`
-- `domain` depends only on `shared`
+- `domain` is framework-agnostic
 
 ## How to Run
 
@@ -44,5 +43,4 @@ This project is intentionally minimal, so there are no test files at the moment.
 
 - Add persistence only when required by features
 - Add more invoice operations like update, issue, cancel
-- Add GST tax calculation rules in domain
 

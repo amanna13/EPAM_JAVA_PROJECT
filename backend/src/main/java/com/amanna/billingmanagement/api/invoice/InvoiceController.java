@@ -22,6 +22,10 @@ public class InvoiceController {
                 invoice.id(),
                 invoice.customerGstin(),
                 invoice.taxableAmount(),
+                invoice.cgstAmount(),
+                invoice.sgstAmount(),
+                invoice.totalTaxAmount(),
+                invoice.totalAmount(),
                 invoice.createdAt()
         );
     }

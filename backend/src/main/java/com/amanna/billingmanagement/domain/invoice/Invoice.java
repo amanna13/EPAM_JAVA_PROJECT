@@ -1,12 +1,14 @@
 package com.amanna.billingmanagement.domain.invoice;
 
-import com.amanna.billingmanagement.shared.kernel.DomainException;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.UUID;
 
 public final class Invoice {
+
+    private static final BigDecimal CGST_RATE = new BigDecimal("0.09");
+    private static final BigDecimal SGST_RATE = new BigDecimal("0.09");
 
     private final String id;
     private final String customerGstin;
@@ -22,10 +24,10 @@ public final class Invoice {
 
     public static Invoice draft(String customerGstin, BigDecimal taxableAmount) {
         if (customerGstin == null || customerGstin.isBlank()) {
-            throw new DomainException("Customer GSTIN is required");
+            throw new IllegalArgumentException("Customer GSTIN is required");
         }
         if (taxableAmount == null || taxableAmount.signum() <= 0) {
-            throw new DomainException("Taxable amount must be greater than zero");
+            throw new IllegalArgumentException("Taxable amount must be greater than zero");
         }
         return new Invoice(UUID.randomUUID().toString(), customerGstin, taxableAmount, Instant.now());
     }
@@ -42,8 +44,28 @@ public final class Invoice {
         return taxableAmount;
     }
 
+    public BigDecimal cgstAmount() {
+        return percentageOfTaxable(CGST_RATE);
+    }
+
+    public BigDecimal sgstAmount() {
+        return percentageOfTaxable(SGST_RATE);
+    }
+
+    public BigDecimal totalTaxAmount() {
+        return cgstAmount().add(sgstAmount());
+    }
+
+    public BigDecimal totalAmount() {
+        return taxableAmount.add(totalTaxAmount()).setScale(2, RoundingMode.HALF_UP);
+    }
+
     public Instant createdAt() {
         return createdAt;
+    }
+
+    private BigDecimal percentageOfTaxable(BigDecimal rate) {
+        return taxableAmount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
     }
 }
 

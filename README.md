@@ -1,10 +1,16 @@
-# GST Billing, Invoice, and Tax Management Backend
+<div align="center">
+  <h3><strong>GST Billing, Invoice, and Tax Management</strong></h3>
+</div>
 
-## Scope
-- Simple Spring Boot backend for GST billing features
-- Persistence-ready backend with JPA + Flyway migrations
-- No complex architecture frameworks
-- Frontend separate and out of scope
+<p align="center">
+  
+  <img src="https://img.shields.io/badge/status-Prototype-orange" alt="Status" />
+  <img src="https://img.shields.io/badge/version-0.0.1-blue" alt="Version" />
+  <br/>
+</p>
+
+API documentation for GST billing, invoice, and tax management - https://gstinvoice.bytexl.live/swagger-ui/index.html
+
 
 ## Architecture Direction
 - Everything stays inside `src/main/java`
@@ -55,7 +61,6 @@ Dependency direction applied
 
 ## Database Setup
 - H2 in-memory for development (default)
-- PostgreSQL for production (set via environment)
 
 ## How to Run
 
@@ -72,8 +77,13 @@ http://localhost:8080/v3/api-docs
 
 This project is intentionally minimal, so there are no test files at the moment.
 
-## Next Steps
 
-- Add simple auth (single-role protected mutation endpoints)
-- Add tests for domain and API lifecycle flows
+## Screenshots 
+
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/31d02369-317f-4be3-a303-e76f827dcf24" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/a416be6c-44ba-4cf3-a470-4f97b409ec3c" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/c5f1fc0c-7ce5-4cba-92fd-2b93696eb521" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/209c2dae-f72c-4b31-b05b-f91add91ed78" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/7d9beb63-6139-4c0f-8949-6dd31e37040a" />
+
 

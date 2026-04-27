@@ -3,8 +3,6 @@
 ## Scope
 - Simple Spring Boot backend for GST billing features
 - Persistence-ready backend with JPA + Flyway migrations
-- No complex architecture frameworks
-- Frontend separate and out of scope
 
 ## Architecture Direction
 - Everything stays inside `src/main/java`
@@ -14,11 +12,6 @@
 - `infrastructure` for persistence adapters and entities
 - Keep architecture practical and avoid unnecessary layers
 
-## Engineering Rules
-- Keep classes small and readable
-- Prefer constructor injection
-- Keep domain logic inside domain classes
-- Avoid unnecessary interfaces and extra layers
 
 ## Current Implementation
 
@@ -78,8 +71,4 @@ http://localhost:8080/v3/api-docs
 
 This project is intentionally minimal, so there are no test files at the moment.
 
-## Next Steps
-
-- Add simple auth (single-role protected mutation endpoints)
-- Add tests for domain and API lifecycle flows
 

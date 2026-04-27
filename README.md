@@ -55,14 +55,12 @@ Dependency direction applied
 - Invoice update (draft only)
 - Validation for create/update payloads
 - Default Spring error handling (minimal)
-- JPA persistence through H2 + Flyway migration
+- JPA persistence through H2 migration
 - Minimal audit logs for invoice create/update/issue/cancel (timestamp + invoiceId + action)
 - GST summary endpoint/export by date range
 
 ## Database Setup
 - H2 in-memory for development (default)
-- PostgreSQL for production (set via environment)
-- Flyway migrations auto-run from `src/main/resources/db/migration/`
 
 ## How to Run
 
@@ -78,7 +76,6 @@ http://localhost:8080/v3/api-docs
 ```
 
 This project is intentionally minimal, so there are no test files at the moment.
-
 
 
 ## Screenshots 

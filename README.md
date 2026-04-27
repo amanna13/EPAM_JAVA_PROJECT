@@ -3,6 +3,8 @@
 ## Scope
 - Simple Spring Boot backend for GST billing features
 - Persistence-ready backend with JPA + Flyway migrations
+- <img height="400" alt="image" src="https://github.com/user-attachments/assets/5ef1416b-d40e-4deb-8c25-6cf1ef30ba12" />
+
 
 ## Architecture Direction
 - Everything stays inside `src/main/java`
@@ -70,5 +72,15 @@ http://localhost:8080/v3/api-docs
 ```
 
 This project is intentionally minimal, so there are no test files at the moment.
+
+
+
+## Screenshots 
+
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/31d02369-317f-4be3-a303-e76f827dcf24" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/a416be6c-44ba-4cf3-a470-4f97b409ec3c" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/c5f1fc0c-7ce5-4cba-92fd-2b93696eb521" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/209c2dae-f72c-4b31-b05b-f91add91ed78" />
+<img height="500" alt="image" src="https://github.com/user-attachments/assets/7d9beb63-6139-4c0f-8949-6dd31e37040a" />
 
 
